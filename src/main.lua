@@ -17,34 +17,28 @@ function full_print_dictionary(dic, indexdic)
 end
 
 -- try calcumlater!
--- Hilfsfunktion, um zu überprüfen, ob der Eingabewert eine Zahl ist
 function check_number(str)
     return tonumber(str) ~= nil
 end
 
--- Funktion zur Extraktion einer Zahl von einer gegebenen Position
 function extract_number(input, start_index)
     local nr_start = start_index
     local nr_end = start_index
     while nr_end <= #input and check_number(string.sub(input, nr_end, nr_end)) do
         nr_end = nr_end + 1
     end
-    -- Sicherstellen, dass wir eine gültige Zahl extrahieren
     if tonumber(string.sub(input, nr_end - 1)) == false then
         nr_end = nr_end - 1
     end
     return tonumber(string.sub(input, nr_start, nr_end - 1)), nr_end
 end
 
--- Die Hauptberechnungsfunktion
 function str_calculate(input)
-    -- Entferne alle Leerzeichen aus dem Eingabestring
     input = input:gsub(" ", "")
 
     local num1, num2, operator
     local operator_pos
 
-    -- Suche nach dem Operator (+, -, *, /) und der Position der ersten Zahl
     for i = 1, #input do
         local char = string.sub(input, i, i)
         if char == "+" or char == "-" or char == "*" or char == "/" then
@@ -55,10 +49,8 @@ function str_calculate(input)
         end
     end
 
-    -- Extrahiere die zweite Zahl nach dem Operator
     num2, _ = extract_number(input, operator_pos + 1)
 
-    -- Berechnung je nach Operator
     local result
     if operator == "+" then
         result = num1 + num2
