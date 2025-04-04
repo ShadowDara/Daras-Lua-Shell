@@ -3,10 +3,11 @@
 -- script vars
 
 -- for info command
-infolist = {"info", "info_info"}
+infolist = {"info", "info_info", "info_cal"}
 infos = {
-    info = "info: Displays avalaible commads with a little description",
-    info_info = "info *: Display external links for more information about this!"
+    info = ">> info: Displays avalaible commads with a little description",
+    info_info = ">> info *: Display external links for more information about this!",
+    info_cal = ">> info cal: call is a little calculator which supports 2 numbers and +, -, * and /"
 }
 
 -- script functions
@@ -70,7 +71,7 @@ function str_calculate(input)
 end
 
 -- run on execution
-print("Custom Shell Terminal in Lua by Shadowdara\n")
+print("Custom Shell Terminal in Lua by Shadowdara\n\n>> type 'info' for more information!\n")
 while true do
     io.write("$ ")
     com = io.read()
@@ -83,7 +84,7 @@ while true do
         if string.sub(com, 4, -1) == "" then
             print("info missing 12")
         else
-            io.write(">result: ", str_calculate(string.sub(com, 5, -1)), "\n")
+            io.write(">> result: ", str_calculate(string.sub(com, 5, -1)), "\n")
         end
 
     elseif string.sub(com, 1, 4) == 'echo' then
@@ -95,12 +96,15 @@ while true do
     elseif string.sub(com, 1, 4) == 'info' then
 
         if string.sub(com, 6, -1) == "" then
-            print("> Infomation about commands")
-            print("> for more information about a particular commandtype info and than the command name!")
-            print("> Type 'info *' to see all avalaible commands!")            
+            print(">> Infomation about commands")
+            print(">> for more information about a particular commandtype info and than the command name!")
+            print(">> Type 'info *' to see all avalaible commands!")            
 
         elseif string.sub(com, 6) == '*' then
             full_print_dictionary(infos, infolist)
+        
+        elseif string.sub(com, 6, 8) == "cal" then
+            print(infos["info_cal"])
         end
 
     else
